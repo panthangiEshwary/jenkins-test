@@ -12,8 +12,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def imageName = "jenkins-demo-image"
-                    sh "docker build -t ${imageName} ."
+                    sh 'docker build -t jenkins-demo-image .'
                 }
             }
         }
@@ -21,7 +20,14 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh "docker run --rm jenkins-demo-image"
+                    // Run container in background
+                    sh 'docker run -d -p 5000:5000 --name jenkins-demo jenkins-demo-image'
+
+                    // Wait for few seconds
+                    sh 'sleep 10'
+
+                    // Stop container
+                    sh 'docker stop jenkins-demo'
                 }
             }
         }
