@@ -5,7 +5,8 @@ pipeline {
         stage('Hello') {
             steps {
                 echo '👋 Hello from Jenkins Pipeline!'
-                sh 'datetime'
+                sh 'date'
+                sh 'time'
             }
         }
     }
